@@ -1,0 +1,15 @@
+
+<form action="/queries" method="post">
+<input type="hidden"
+         name="authenticity_token"
+         value="<%= form_authenticity_token %>">
+   <label for="principal">Principal</label>
+   <input id="principal" type="text" name="query[principal]">
+    <label for="principal">Rate</label>
+   <input id="rate" type="text" name="query[rate]">
+    <label for="years">Years</label>
+   <input id="years" type="text" name="query[years]">
+   <input type="submit" value="Calculate the Compund Interest" class="btn">
+
+</form>
+

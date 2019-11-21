@@ -1,0 +1,64 @@
+<h1>Calculate Interest</h1>
+<%principal=0%>
+<%rate=0%>
+<%years=0%>
+<form action="/queries" method="post">
+<input type="hidden"
+         name="authenticity_token"
+         value="<%= form_authenticity_token %>">
+   <div class="form">
+        <div  class="msg"><%=flash[:message] %></div>
+        <label for="principal" class="label" >Principal</label>
+        <input id="principal" type="text" name="query[principal]" value="<%principal%>" class="formField">
+            <label for="principal" class="label">Rate</label>
+        <input id="rate" type="text" name="query[rate]" value="<%rate%>"class="formField" >
+            <label for="years" class="label">Years</label>
+        <input id="years" type="text" name="query[years]" value="<%years%>" class="formField">
+        <input type="submit" value="Calculate the Interest" class="btn">
+    </div>
+</form>
+<%if flash[:total]%>
+<div class="total">
+   Total with Interest: <%= flash[:total] %>
+</div> 
+<%end%>
+<div class="queryTable">
+<table style="width:30% ">
+  <tr>
+    <th>Principal</th>
+    <th>Rate</th>
+    <th>Years</th>
+    <th>Total</th>
+    <th> 
+    <form action="<%=query_url(:all)%>" method="POST">
+     <input type="hidden" name="_method" value="DELETE"/>
+     <input type="hidden"
+         name="authenticity_token"
+         value="<%= form_authenticity_token %>">
+
+     <input type="submit" value="Delete All" class="btn2"/> 
+  </form> 
+  
+  </th> 
+  </tr>
+  <%@queries = @queries.reverse%>
+  <%i=0%>
+<% @queries.each do |q| %>
+     <tr>
+    <td><%= q.principal %></td>
+    <td><%=q.rate%></td>
+    <td><%=q.years%></td>
+    <td><%=q.total%></td>
+    <form action="<%=query_url(q.id)%>" method="POST">
+     <input type="hidden" name="_method" value="DELETE"/>
+     <input type="hidden"
+         name="authenticity_token"
+         value="<%= form_authenticity_token %>">
+     <td><input type="submit" value="Delete" class="btn2"/> <br></td>
+  </form>
+  </tr>  
+   
+<%end%>
+
+</table>
+</div>
